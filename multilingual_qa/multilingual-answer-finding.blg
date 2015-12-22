@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: multilingual-answer-finding.aux
+The style file: abbrv.bst
+Database file #1: qa.bib
+You've used 27 entries,
+            2118 wiz_defined-function locations,
+            688 strings with 10430 characters,
+and the built_in function-call counts, 12209 in all, are:
+= -- 1200
+> -- 644
+< -- 18
++ -- 246
+- -- 217
+* -- 886
+:= -- 1923
+add.period$ -- 95
+call.type$ -- 27
+change.case$ -- 175
+chr.to.int$ -- 0
+cite$ -- 27
+duplicate$ -- 497
+empty$ -- 919
+format.name$ -- 217
+if$ -- 2664
+int.to.chr$ -- 0
+int.to.str$ -- 27
+missing$ -- 27
+newline$ -- 138
+num.names$ -- 62
+pop$ -- 201
+preamble$ -- 1
+purify$ -- 148
+quote$ -- 0
+skip$ -- 366
+stack$ -- 0
+substring$ -- 720
+swap$ -- 171
+text.length$ -- 18
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 108
+warning$ -- 0
+while$ -- 109
+width$ -- 29
+write$ -- 329
