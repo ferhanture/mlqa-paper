@@ -462,19 +462,19 @@ context, and no context.\\
 %the other methods, which might increase recall. On the other hand, it might also generate some noise due to its context-insensitive nature. 
 %In contrast, the 10-best method lacks diversity compared to the word-based method (since the top 10 translations output by the MT system 
 %are usually very similar), but can provide more accurate translations.
+\vspace{-0.25cm}
 For example, the question ``Tell me about child 
 labor in Africa", which is simplified by our preprocessing engine to ``child labor in Africa", is translated into the following 
 probabilistic structure.
 % by \emph{grammar} translation.
+
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=7cm]{example.pdf}
 \caption{Probabilistic grammar-based translation of example question $q$ (call this $q_{\textrm{grammar}}$).}
  \label{fig:example} 
-\vspace{-0.2cm}
 \end{figure}
-\vspace{-0.3cm}
 
 We are not aware of any other MLQA approach that represents the question-answer pair based on their probabilistic translation
 space.
@@ -814,12 +814,8 @@ can be used for any MLQA task out of the box, and provide improvements.
 %forum posts. This task represents a real-life scenario of searching through a diverse, informal, multilingual
 %Web collection, with many challenges relevant to the QA research literature.
 
-Our experimental analysis makes a thorough case on how language-inspired data selection and feature 
-engineering affect QA effectiveness, and provides empirical evidence to \red{fully support three of our hypotheses}. 
-With additional lexical and semantic similarity features from two views (question-language and collection-language), 
-as well as a carefully selected training set, our classifier improved answer ranking effectiveness significantly 
-for Chinese-only, English-only, and mixed-language QA. 
-
+Our experimental analysis makes a strong case on how language-inspired data selection and probabilistic
+translation features improve QA effectiveness, providing empirical evidence to \red{fully support three of our hypotheses}. 
 %Results did not support the hypothesis that learning a custom classifier for the retrieval of each language separately 
 %would outperform the \emph{single classifier} baseline, but we still think that more research is needed to fully 
 %understand how language-sensitive modeling can benefit MLQA. 
@@ -828,17 +824,14 @@ for Chinese-only, English-only, and mixed-language QA.
 %heuristics. This would allow us to predict the final language ratio, based on many features (e.g., general
 %collection statistics, quality of candidate answers, question category and complexity, MT system confidence levels) 
 %to merge question-answer pairs.
-
 An even more comprehensive use of machine learning would be to learn word-level translation scores, instead
 of relying on translation probabilities from the bilingual dictionary. This would result in a fully customized translation
 approach. Similar approaches have appeared in learning-to-rank literature for monolingual IR~\cite{Bendersky:2010aa}, 
 we are not aware of such an approach for multilingual retrieval. 
-
-Another extension of this work would be to apply the probabilistic translation methods for translating answers into
-the question language (in addition to question translation). By doing this, we would be able to capture the 
-semantics of each answer much better, since we have discussed that one-best translation discards a lot of 
-potentially useful information. For this extension, the processing pipeline would need to handle the increased 
-computational complexity.
+Another extension would be to apply the probabilistic translation methods for translating answers into
+the question language (in addition to question translation). By doing this, we would capture the 
+semantics of each answer much better, as one-best translation discards a lot of 
+potentially useful information.
 
 %Finally, since one of the take-away messages of our work is that a deeper understanding of linguistic context can 
 %improve QA effectiveness via more sophisticated question translation, we are hoping to see even more improvements
