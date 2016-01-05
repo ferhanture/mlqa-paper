@@ -31,13 +31,12 @@
 \isbn{123-4567-24-567/08/06}
 
 %Conference
-\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
 
 \acmPrice{\$15.00}
 
 %
 % --- Author Metadata here ---
-\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+\conferenceinfo{SIGIR}{'16 San Francisco, Californoa USA}
 %\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
@@ -58,7 +57,7 @@
 \date{}
 
 \maketitle
-
+\ignore{
 \begin{abstract}
 
 We introduce a machine learning-based approach for optimizing translation
@@ -115,7 +114,7 @@ a classifier based only on English (original or translated) text.
 %\noindent
 %{\bf Keywords:} multilingual data, question answering, clqa
 \end{abstract}
-
+}
 
 \section{Introduction}
 %General task definition: finding answers to a posed question from user in their own language. answers might come from any language.
@@ -138,12 +137,12 @@ a classifier based only on English (original or translated) text.
 %%\vspace{-0.5cm}
 %\paragraph{Problem Description}
 
-\emph{Question answering} (QA), the task of finding relevant well-formed answers to a posed question, usually consists of three main 
-stages: (a) preprocessing the question and collection, (b) retrieval of candidate answers in the collection, and (c) ranking answers with respect 
-to their relevance to the question and return the top $N$ answers. The questions can range from factoid (e.g., ``What is the capital of France?") 
+\emph{Question answering} (QA) usually consists of three stages: 
+(a) preprocessing the question and collection, (b) retrieval of candidate answers in the collection, and (c) ranking answers with respect 
+to their relevance to the question. The questions can range from factoid (e.g., ``What is the capital of France?") 
 to causal (e.g., ``Why are trees green?"), and opinion questions 
 (e.g., ``What do people think about lowering the drinking age in the United States?"). While earlier research has mostly focused on relatively 
-simpler factoid questions, in which there is a single clear answer that can potentially be retrieved from a structured database, this is no longer 
+simpler factoid questions, which have a single clear answer that can potentially be retrieved from a structured database, this is no longer 
 a representative case in many real-world applications. 
 
 %\red{ELABORATE MORE ON WHAT A NON-FACTOID QUESTION IS AND WHAT OUR APPROACH CAN AND CANNOT HANDLE}
@@ -185,9 +184,9 @@ weights multiple translations of the question and/or candidate answer, based on 
 Each translation of the question and/or answer is represented by a feature (Section~\ref{sec:repr}). The model then learns feature weights for 
 each combination of translation \emph{direction} and \emph{method}, through a discriminative training process (Section~\ref{sec:feat}). 
 In addition to our novel features, we also experimented with various data selection strategies to optimize model training (Section~\ref{sec:data}). 
-Experiments were conducted on the DARPA Broad Operational Language Technologies (BOLT) IR task.\footnote{{\scriptsize \url{
+Experiments conducted on the DARPA BOLT IR task\footnote{{\scriptsize \url{
 http://www.darpa.mil/Our_Work/I2O/Programs/Broad_Operational_Language_Translation_(BOLT).aspx}}} 
-Results confirm that our {\tt L2T} approach yields statistically significant improvements {\tt 1MT} ($p<0.05$).
+confirm that our {\tt L2T} approach is statistically significantly better than {\tt 1MT} ($p<0.05$).
 %in three out of four experiments. 
 
 
@@ -254,7 +253,7 @@ exceptions that took term importance~\cite{Ren:aa}, or semantics~\cite{Munoz-Ter
 in a probabilistic manner, improving \emph{document retrieval} effectiveness over a one-best translation 
 approach~\cite{Ture:2014aa}.
 Extending this idea to MLQA appears as a logical next step, yet most prior work
-rely solely on the one-best translation of questions or answers~\cite{Ko:2010ab,Garcia-Cumbreras:2012aa,Chaturvedi:2014aa},
+rely solely on one-best translation of questions or answers~\cite{Ko:2010ab,Garcia-Cumbreras:2012aa,Chaturvedi:2014aa},
 or select the best translation out of few options~\cite{Sacaleanu:2008aa,Mitamura:2006aa}.
 Mehdad et al. reported improvements by using a distance-based entailment score to choose among the top ten 
 translations~\cite{Mehdad:2010aa}. 
@@ -262,7 +261,7 @@ translations~\cite{Mehdad:2010aa}.
 %that using MT as a black box is more convenient (and modular)~\cite{Espla-Gomis:2012aa}, there are potential 
 %benefits from a closer integration between statistical MT and multilingual retrieval~\cite{Nie:2010}. 
 To the best of 
-our knowledge, there is no prior work in the literature, where the \emph{\textbf{optimal query and/or answer translation is 
+our knowledge, there is no prior work where the \emph{\textbf{optimal query and/or answer translation is 
 learned via machine learning}}.
 In addition to learning the optimal translation, we show that \emph{\textbf{learning the optimal subset of the training data 
 for a given task}} improves effectiveness. We select data based on either the source 
@@ -332,9 +331,9 @@ With these two contributions, we outperform the state of the art.
 
 Our work is focused on the \emph{answer ranking} stage of QA:\
 %First, let us formally define the stage of the QA pipeline that we focus on throughout this paper, namely \emph{answer ranking}:\
-Given a natural-language question $q$ in English and $k$ candidate answers $s_1, \ldots, s_k$ (either English, Arabic, or Chinese), 
-we score each answer in terms of its relevance to $q$. In our case, candidate answers are sentences extracted from all documents 
-using the Indri retrieval engine~\cite{Metzler:2005}). 
+Given a natural-language question $q$ in English, we score each $k$ candidate answers (either English, Arabic, or Chinese), 
+in terms of its relevance to $q$. In our case, candidate answers are sentences extracted from all documents 
+using the Indri retrieval engine~\cite{Metzler:2005}. 
 %Hereafter, sentence and answer might be used interchangeably.
 %While our approach is not language-specific, we assume (for simplicity) that questions are in English, whereas sentences are 
 %in either English, Arabic, or Chinese. Non-English answers are translated back into English before 
@@ -345,22 +344,23 @@ using the Indri retrieval engine~\cite{Metzler:2005}).
 \ignore{Our approach is not limited to any question type, factoid or non-factoid. Our main motivation is to provide good QA quality on
 any multilingual Web collection. This entails finding answers to questions where there is no single answer, and for which human 
 agreement is low.}
+
 We aim to build a system that can successfully retrieve relevant information from open-domain and 
-informal-language content. In this scenario, two assumptions made by many of the prior approaches fail:\
-The assumptions i) that we can accurately classify questions via template patterns (Chaturvedi et al. argue that this does not hold for non-factoid
-questions~\cite{Chaturvedi:2014aa})
-and ii) that we can accurately determine the relevance of an answer, based on its automatic translation into English (Wees et al. 
-show how recall decreases when translating user-generated text~\cite{Wees:2015aa})
+informal-language content. In this scenario, two common assumptions fail:\ i) we can accurately classify questions via template 
+patterns (Chaturvedi et al. argue that this does not hold for non-factoid questions~\cite{Chaturvedi:2014aa})
+and ii) we can accurately determine the relevance of an answer, based on its automatic translation into English (Wees et al. 
+show how recall decreases when translating user-generated text~\cite{Wees:2015aa}).
 
 Instead, we opted for a more adaptable approach, in which question-answer relevance is modeled 
 using a discriminative classifier that represents a function of features intended to capture the relationship between the question 
-and sentence text. Also, instead of relying solely on a single potentially incorrect English translation, we increase our chances of 
+and sentence text. We describe details throughout this section.
+\ignore{
+Instead of relying solely on a single potentially incorrect English translation, we increase our chances of 
 a hit by translating both the question and the candidate answer, using four different translation methods.
-
 Our main features, which are described throughout this section, are based on lexical similarity computed using these translations. 
 The classifier is trained on a large number of question-answer pairs, each labeled by a human annotator with a 
-binary relevance label.\footnote{Annotators score each answer from 1 to 5. We label any score of 3 or higher as relevant.} 
-We also show that restricting the classifier to a specific subset of training data can result in a much better model of relevance.
+binary relevance label.\footnote{Annotators score each answer from 1 to 5. We label any score of 3 or higher as relevant.} }
+\ignore{We also show that restricting the classifier to a specific subset of training data can result in a much better model of relevance.}
 
 %In our approach, we decided not to use template patterns to classify questions, since previous work suggests that it is difficult to 
 %categorize non-factoid questions using such patterns.
@@ -393,15 +393,15 @@ due to the error-prone nature of MT. These errors are especially noticeable when
 text~\cite{Wees:2015aa}, or less-studied languages.
 
 \textbf{Translation Direction}:
-In our approach, we perform a \emph{two-way translation} to better retain the original meaning:
+We perform a \emph{two-way translation} to better retain the original meaning:
 %, and use that 
 %information when modeling relevance (in addition to its translation).
 %Based on this observation, 
 in addition to translating each non-English sentence into English, 
 we also translate the English questions into Arabic and Chinese (using multiple translation methods, described 
-below). For a given question-answer pair, we have two``views'':\ comparing the translated question to the 
-original sentence (call this {\em collection-language} (CL) view); and comparing the original question to the 
-translated sentence (call this {\em question-language} (QL) view). 
+below). For each question-answer pair, we have two ``views'':\ comparing translated question to the 
+original sentence (i.e., {\em collection-language} (CL) view); and comparing original question to the 
+translated sentence (i.e., {\em question-language} (QL) view). 
 
 %Our model then \emph{learns the most effective translation} direction and method by optimizing weights of the
 %classifier, which we refer to as \emph{Learning to Translate}, and yields a more robust approach for question answering.
@@ -465,16 +465,14 @@ context, and no context.\\
 \vspace{-0.25cm}
 For example, the question ``Tell me about child 
 labor in Africa", which is simplified by our preprocessing engine to ``child labor in Africa", is translated into the following 
-probabilistic structure.
+probabilistic structure:
 % by \emph{grammar} translation.
 
-
-\begin{figure}[h!]
-\centering
+%\begin{figure}[h!]
 \includegraphics[width=7cm]{example.pdf}
-\caption{Probabilistic grammar-based translation of example question $q$ (call this $q_{\textrm{grammar}}$).}
- \label{fig:example} 
-\end{figure}
+%\caption{Probabilistic grammar-based translation of example question $q$ (call this $q_{\textrm{grammar}}$).}
+% \label{fig:example} 
+%\end{figure}
 
 We are not aware of any other MLQA approach that represents the question-answer pair based on their probabilistic translation
 space.
@@ -492,8 +490,10 @@ on each combination of translation direction and method.
 %Each Arabic or Chinese sentence is converted 
 %into a frequency vector, from which we compute the cosine similarity with each of the four query representations, resulting in four real-valued 
 %lexical similarity features in the CL view (we call these {\tt LexCL}). 
-Figure~\ref{fig:vector} shows how the probabilistic structure in Figure~\ref{fig:example} is converted into a single real-valued vector 
-$v_{q_{\textrm{grammar}}}$ by averaging values for each Chinese word across the three distributions.
+Following figure shows how the probabilistic structure is converted into a single real-valued vector:
+by averaging values for each Chinese word across the three distributions:
+\includegraphics[width=7cm]{example2.pdf}
+
 %shows how each English question word is represented by a probability distribution over the Chinese 
 %vocabulary, using grammar translation. We convert this into a single real-valued vector by averaging values for each Chinese word across 
 %the three distributions. 
@@ -504,15 +504,14 @@ we compute the cosine similarity.
 The same process is repeated for the 
 other three translation methods. These four lexical collection-language similarity features are collectively called \emph{LexCL}.
 %, are shown in Figure~\ref{fig:features} and described in Table~\ref{tab:features}.
-\vspace{-0.3cm}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=7cm]{example2.pdf}
-\caption{Vector representation of grammar-translated question ($q_{\textrm{grammar}}$) and sentence ($s$).}
- \label{fig:vector}
- \vspace{-0.2cm}
-\end{figure}
-\vspace{-0.2cm}
+%\vspace{-0.3cm}
+%\begin{figure}[h!]
+
+%\caption{Vector representation of grammar-translated question ($q_{\textrm{grammar}}$) and sentence ($s$).}
+% \label{fig:vector}
+% \vspace{-0.2cm}
+%\end{figure}
+%\vspace{-0.2cm}
 
 As mentioned before, we also obtain a similarity value by translating the sentence ($s_{\textrm{1best}}$) 
 and computing the cosine similarity with the original question ($q$). Although it is possible to translate the 
@@ -622,8 +621,8 @@ English translation):\\
 \underline{\em annot=consist}: All sentences except those that were judged inconsistently.\\
 \underline{\em annot=src+}: Sentences judged only in original text, or judged in both consistently.\\
 \underline{\em  annot=en+}: Sentences that are judged either only in English, or judged in both original and English translation consistently.\\
-\underline{\em all}: All sentences.
-
+%\underline{\em all}: All sentences.
+\vspace{-0.35cm}
 
 % 1. Pipeline
 % describe what we consider an answer (sentences split from documents), how we collect labeled data, what/how we train, how we score and rank (and any heuristics we apply).
@@ -632,7 +631,7 @@ English translation):\\
 % list and describe various subsets
 
 \section{Evaluation}\label{sec:eval}
-In this section, we describe the evaluation of our multilingual QA approach. In order to perform controlled experiments and gain more 
+In order to perform controlled experiments and gain more 
 insights, we split our evaluation into four separate tasks:\ three tasks focus on retrieving answers from posts written in a specified language 
 (\emph{English-only}, \emph{Arabic-only}, or \emph{Chinese-only}), and the last task is not restricted to any language 
 (\emph{Mixed-language}). 
@@ -645,29 +644,29 @@ insights, we split our evaluation into four separate tasks:\ three tasks focus o
 %the classifier that works best for one task might not be optimal for another task.
 
 All experiments were conducted on the IR evaluation task of the DARPA BOLT 
-program. The collection consists of 12.6m Arabic, 7.5m Chinese, and 9.6m English Web forum posts. All 
-experimental runs use a set of 45 non-factoid (mostly opinion and causal) English questions, from a range of topics.
-All questions and forum posts were processed with an information extraction (IE) toolkit~[reference removed for
-anonymization], which performs sentence-splitting, named entity recognition, coreference resolution, parsing, and part-of-speech tagging. 
-
+program. The collection consists of 12.6m Arabic, 7.5m Chinese, and 9.6m English Web forum posts, and a 
+set of 45 non-factoid (mostly opinion and causal) English questions, all of which is preprocessed with 
+sentence-splitting, named entity recognition, coreference resolution, parsing, and part-of-speech tagging. 
 All non-English posts were translated into English, and all questions were translated into Arabic and Chinese,
-using state-of-the-art English$\leftrightarrow$Arabic (En-Ar) and English$\leftrightarrow$Chinese (En-Ch) MT systems~[reference 
-removed for anonymization]. 
-Underlying models were trained on parallel corpora from NIST OpenMT 2012, in addition to parallel forum data collected 
-as part of the BOLT program (10m En-Ar words; 30m En-Ch words). From these data, word alignments were learned with 
-GIZA++~\cite{Och:2003} (five iterations of IBM Models 1--4 and HMM). While we only used the one-best English
-translation for sentences, we applied the probabilistic translation methods from Section~\ref{sec:repr} to questions. 
-
+using state-of-the-art English$\leftrightarrow$Arabic (En-Ar) and English$\leftrightarrow$Chinese 
+(En-Ch) MT systems~[reference removed for anonymization]. 
+The translation models were trained on parallel corpora from NIST OpenMT 2012, in addition to parallel forum 
+data collected as part of the BOLT program (10m En-Ar words; 30m En-Ch words). 
+From these data, word alignments were learned with GIZA++~\cite{Och:2003} (five iterations of IBM Models 1--4 
+and HMM). While we only used the 
+one-best English translation for sentences, we applied the probabilistic translation methods from Section~\ref{sec:repr} 
+to questions. 
 After all preprocessing, features were computed using the original post and question text, and their translations.
 %, and the syntactic and semantic analysis output by our IE toolkit  
-Training data were created by having annotators label all sentences of the top 200 documents retrieved by Indri from 
-each collection (for each question). 
+Training data were created by having annotators label all sentences of the top 200 documents retrieved per-question by Indri.
+\ignore{
 Due to the nature of retrieval tasks, labels of the training data are usually unbalanced, with more negatively labeled sentences. 
 In order to correct this, we split the data into balanced subsets (each sharing the same set of positively labeled data) 
 and train multiple classifiers, then take a majority vote when predicting.
-
+}
 %We later bootstrapped more candidate
 %answers after rerunning the pipeline with a trained classifier. ==> no need to give details. In the end, we pretty much annotate all sentences in top 200 docs.
+
 For testing, we froze the set of candidate answers and applied a trained classifier to each question-answer pair, generating
 a ranked list of answers for each question. Evaluation was performed on this ranked list by computing average precision (AP). 
 Due to the size and redundancy of the collections, we sometimes end 
@@ -677,10 +676,10 @@ at every relevant answer until we get $k$ relevant answers.\footnote{$k$ was fix
 verified that conclusions do not change with $k$ set to 50, 100, or 150.} %(we also tried 50, 100, and 150).
 %\vspace{-0.2cm}
 
-\textbf{Baseline}: As described earlier, the baseline system computes similarity between question text and the one-best translation of the candidate 
-answer (we run the sentence through our state-of-the-art MT system). After translation, we compute similarity via scoring 
-the match between the parse of the question text and the parse of the candidate answer, using our finely-tuned IE 
-toolkit~[reference removed for anonymization].
+\textbf{Baseline}: As described earlier, the baseline system computes similarity between question text and the one-best 
+translation of the candidate answer (we run the sentence through our state-of-the-art MT system). After translation, we 
+compute similarity via scoring the match between the parse of the question text and the parse of the candidate answer, 
+using our finely-tuned IE toolkit~[reference removed for anonymization].
 %~\cite{Freedman:2011aa}. 
 This results in three different similarity features:\ matching the tree node similarity, 
 edge similarity, and full tree similarity. Feature weights are then learned by training this classifier discriminatively on the 
@@ -732,8 +731,8 @@ as well as our data selection strategy.
 
 
 %\setlength{\tabcolsep}{.25em}
-
 \begin{table}[h]
+\begin{small}
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -745,11 +744,12 @@ Eng & 0.637 & \underline{0.657} & eng+ & \underline{ 0.660 } & all  \\ \hline
 Mixed & 0.665 & \underline{0.675} & eng+ & \underline{\underline{ 0.681} } & all \\ \hline
 \end{tabular}
 %\vspace{-0.2cm}
-\caption{MAP with 10-fold cross-validation for each task. We compare numbers to \emph{baseline} scores; 
-statistically significant increase are underlined ($p<0.05$).}
+\caption{{\small Statistically significant increase over \emph{baseline} and \emph{+Data} are underlined 
+(MAP with 10-fold cross-validation).}}
 \label{tab:controlled}
-\end{table}
+\end{small}
 
+\end{table}
 %any_feat & 0.403 & 0.657 & 0.679 & 0.448\\ \hline
 
  
@@ -814,8 +814,8 @@ can be used for any MLQA task out of the box, and provide improvements.
 %forum posts. This task represents a real-life scenario of searching through a diverse, informal, multilingual
 %Web collection, with many challenges relevant to the QA research literature.
 
-Our experimental analysis makes a strong case on how language-inspired data selection and probabilistic
-translation features improve QA effectiveness, providing empirical evidence to \red{fully support three of our hypotheses}. 
+Our experimental analysis makes a strong case on how probabilistic
+translation-based features and language-inspired data selection can improve QA effectiveness.
 %Results did not support the hypothesis that learning a custom classifier for the retrieval of each language separately 
 %would outperform the \emph{single classifier} baseline, but we still think that more research is needed to fully 
 %understand how language-sensitive modeling can benefit MLQA. 
@@ -825,8 +825,8 @@ translation features improve QA effectiveness, providing empirical evidence to \
 %collection statistics, quality of candidate answers, question category and complexity, MT system confidence levels) 
 %to merge question-answer pairs.
 An even more comprehensive use of machine learning would be to learn word-level translation scores, instead
-of relying on translation probabilities from the bilingual dictionary. This would result in a fully customized translation
-approach. Similar approaches have appeared in learning-to-rank literature for monolingual IR~\cite{Bendersky:2010aa}, 
+of relying on translation probabilities from the bilingual dictionary, resulting in a fully customized translation
+approach. Unlike monolingual IR~\cite{Bendersky:2010aa}, 
 we are not aware of such an approach for multilingual retrieval. 
 Another extension would be to apply the probabilistic translation methods for translating answers into
 the question language (in addition to question translation). By doing this, we would capture the 
