@@ -3,30 +3,26 @@
 \bibitem{Adafre:2009aa}
 S.~Adafre and J.~van Genabith.
 \newblock Dublin city university at qaclef 2008.
-\newblock In C.~Peters, T.~Deselaers, N.~Ferro, J.~Gonzalo, G.~Jones,
-  M.~Kurimo, T.~Mandl, A.~Pe{\~n}as, and V.~Petras, editors, {\em Evaluating
-  Systems for Multilingual and Multimodal Information Access}, volume 5706 of
-  {\em Lecture Notes in Computer Science}, pages 353--360. Springer Berlin
-  Heidelberg, 2009.
+\newblock In volume 5706 of
+  {\em Lecture Notes in Computer Science}, pages 353--360. 2009.
 
 \bibitem{Agarwal:2012aa}
 A.~Agarwal, H.~Raghavan, K.~Subbian, P.~Melville, R.~D. Lawrence, D.~C. Gondek,
   and J.~Fan.
 \newblock {Learning to Rank for Robust Question Answering}.
-\newblock In {\em Proceedings of CIKM '12}, pages 833--842, New York,
-  NY, USA, 2012. ACM.
+\newblock In {\em Proceedings of CIKM '12}, pages 833--842, 2012.
 
 \bibitem{Bendersky:2010aa}
 M.~Bendersky, D.~Metzler, and W.~B. Croft.
 \newblock Learning concept importance using a weighted dependence model.
-\newblock In {\em Proceedings of WSDM '10}, pages 31--40, New York, NY, USA, 2010.
+\newblock In {\em Proceedings of WSDM '10}, pages 31--40, 2010.
   ACM.
 
 \bibitem{Chaturvedi:2014aa}
 S.~Chaturvedi, V.~Castelli, R.~Florian, R.~M. Nallapati, and H.~Raghavan.
 \newblock {Joint Question Clustering and Relevance Prediction for Open Domain
   Non-factoid Question Answering}.
-\newblock In {\em Proceedings of WWW '14}, pages 503--514, New York, NY, USA, 2014. ACM.
+\newblock In {\em Proceedings of WWW '14}, pages 503--514, 2014.
 
 \bibitem{Darwish:2003aa}
 K.~Darwish and D.~W. Oard.
@@ -37,15 +33,13 @@ K.~Darwish and D.~W. Oard.
 J.~Devlin, R.~Zbib, Z.~Huang, T.~Lamar, R.~M. Schwartz, and J.~Makhoul.
 \newblock Fast and robust neural network joint models for statistical machine
   translation.
-\newblock In {\em Proceedings of {ACL} '14}, June 22-27, 2014, Baltimore, MD, USA,
-  pages 1370--1380, 2014.
+\newblock In {\em Proceedings of {ACL} '14}, pages 1370--1380, 2014.
 
 \bibitem{Espla-Gomis:2012aa}
 M.~Espl\`{a}-Gomis, F.~S\'{a}nchez-Mart\'{\i}nez, and M.~L. Forcada.
 \newblock {UAlacant: Using Online Machine Translation for Cross-lingual Textual
   Entailment}.
-\newblock In {\em Proceedings of the SemEval '12}, pages 472--476, Stroudsburg,
-  PA, USA, 2012.
+\newblock In {\em Proceedings of the SemEval '12}, pages 472--476, 2012.
 
 \bibitem{Garcia-Cumbreras:2012aa}
 M.~A. Garc\'{\i}a-Cumbreras, F.~Mart\'{\i}nez-Santiago, and L.~A. Ure\~{n}a
@@ -58,9 +52,7 @@ M.~A. Garc\'{\i}a-Cumbreras, F.~Mart\'{\i}nez-Santiago, and L.~A. Ure\~{n}a
 S.~Hartrumpf, I.~Gl{\~A}¶ckner, and J.~Leveling.
 \newblock Efficient question answering with question decomposition and multiple
   answer streams.
-\newblock In C.~Peters, T.~Deselaers, N.~Ferro, J.~Gonzalo, G.~Jones,
-  M.~Kurimo, T.~Mandl, A.~Pe{\~A}$\pm$as, and V.~Petras, editors, {\em
-  Evaluating Systems for Multilingual and Multimodal Information Access},
+\newblock In 
   volume 5706 of {\em Lecture Notes in Computer Science}, pages 421--428.
   Springer Berlin Heidelberg, 2009.
 
@@ -89,33 +81,31 @@ N.~Madnani, J.~Lin, and B.~J. Dorr.
   M.~Kurimo, T.~Mandl, A.~Pe{\~A}$\pm$as, and V.~Petras, editors, {\em
   Evaluating Systems for Multilingual and Multimodal Information Access},
   volume 5706 of {\em Lecture Notes in Computer Science}, pages 409--420.
-  Springer Berlin Heidelberg, 2009.
+  2009.
 
 \bibitem{Mehdad:2010aa}
 Y.~Mehdad, M.~Negri, and M.~Federico.
 \newblock {Towards Cross-lingual Textual Entailment}.
-\newblock In {\em Proceedings of NAACL-HLT '10}, pages 321--324, 
-  Stroudsburg, PA, USA, 2010.
+\newblock In {\em Proceedings of NAACL-HLT '10}, pages 321--324, 2010.
 
 \bibitem{Metzler:2005}
 D.~Metzler and W.~B. Croft.
 \newblock {A Markov random field model for term dependencies}.
 \newblock In {\em Proceedings of SIGIR '05},
-  pages 472--479, New York, NY, USA, 2005. ACM.
+  pages 472--479, 2005.
 
 \bibitem{Mitamura:2006aa}
 T.~Mitamura, M.~Wang, H.~Shima, and F.~Lin.
 \newblock Keyword translation accuracy and cross-lingual question answering in
   chinese and japanese.
 \newblock In {\em Proceedings of the Workshop on Multilingual Question
-  Answering}, MLQA '06, pages 31--38, Stroudsburg, PA, USA, 2006.
+  Answering}, MLQA '06, pages 31--38, 2006.
 
 \bibitem{Munoz-Terol:2009aa}
 R.~Munoz-Terol, M.~Puchol-Blasco, M.~Pardino, J.~M. Gomez, S.~Roger, K.~Vila,
   A.~Ferrandez, J.~Peral, and P.~Martinez-Barco.
 \newblock Integrating logic forms and anaphora resolution in the aliqan system.
-\newblock In {\em Evaluating Systems for Multilingual and Multimodal
-  Information Access}, LNCS, pages 438--441. Springer Berlin Heidelberg, 2009.
+\newblock In LNCS, pages 438--441. Springer Berlin Heidelberg, 2009.
 
 \bibitem{Nie:2010}
 J.-Y. Nie.
@@ -126,8 +116,7 @@ J.-Y. Nie.
 \bibitem{Och:2003a}
 F.~J. Och.
 \newblock {Minimum error rate training in statistical machine translation}.
-\newblock In {\em Proceedings of ACL '03}, pages 160--167, Stroudsburg,
-  PA, USA, 2003.
+\newblock In {\em Proceedings of ACL '03}, pages 160--167, 2003.
 
 \bibitem{Och:2003}
 F.~J. Och and H.~Ney.
@@ -148,7 +137,7 @@ S.~Robertson, H.~Zaragoza, and M.~Taylor.
 B.~Sacaleanu, G.~Neumann, and C.~Spurk.
 \newblock Dfki-lt at qaclef 2008.
 \newblock In C.~Peters and et~al., editors, {\em CLEF 2008 Working Notes},
-  Working Notes. Springer Verlag, 2008.
+  Springer Verlag, 2008.
 
 \bibitem{Shima:2010aa}
 H.~Shima and T.~Mitamura.
@@ -166,12 +155,12 @@ M.~Van~der Wees, A.~Bisazza, W.~Weerkamp, and C.~Monz.
 \newblock What's in a domain? analyzing genre and topic differences in
   statistical machine translation.
 \newblock In {\em Proceedings of ACL-IJCNLP '15 (Volume 2: Short Papers)}, pages 560--566,
-  Beijing, China, July 2015.
+  2015.
 
 \bibitem{Zhang:2007aa}
 C.~Zhang, M.~Gerber, T.~Baldwin, S.~Emelander, J.~Chai, and R.~Jin.
 \newblock {Michigan State University at the 2007 TREC ciQA Task}.
 \newblock In {\em Proceedings of TREC '07},
-  Gaithersburg, Maryland, Nov. 2007.
+  2007.
 
 \end{thebibliography}
