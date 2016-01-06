@@ -186,7 +186,7 @@ each combination of translation \emph{direction} and \emph{method}, through a di
 In addition to our novel features, we also experimented with various data selection strategies to optimize model training (Section~\ref{sec:data}). 
 Experiments conducted on the DARPA BOLT IR task\footnote{{\scriptsize \url{
 http://www.darpa.mil/Our_Work/I2O/Programs/Broad_Operational_Language_Translation_(BOLT).aspx}}} 
-confirm that our {\tt L2T} approach is statistically significantly better than {\tt 1MT} ($p<0.05$).
+confirm that our {\tt L2T} approach is statistically significantly better than {\tt 1MT}.
 %in three out of four experiments. 
 
 
@@ -331,9 +331,9 @@ With these two contributions, we outperform the state of the art.
 
 Our work is focused on the \emph{answer ranking} stage of QA:\
 %First, let us formally define the stage of the QA pipeline that we focus on throughout this paper, namely \emph{answer ranking}:\
-Given a natural-language question $q$ in English, we score each $k$ candidate answers (either English, Arabic, or Chinese), 
-in terms of its relevance to $q$. In our case, candidate answers are sentences extracted from all documents 
-using the Indri retrieval engine~\cite{Metzler:2005}. 
+Given a natural-language question $q$ in English, we score each candidate answer (either English, Arabic, or 
+Chinese),\footnote{In our case, candidate answers are sentences extracted from all documents 
+using the Indri retrieval engine~\cite{Metzler:2005}.} in terms of its relevance to $q$. 
 %Hereafter, sentence and answer might be used interchangeably.
 %While our approach is not language-specific, we assume (for simplicity) that questions are in English, whereas sentences are 
 %in either English, Arabic, or Chinese. Non-English answers are translated back into English before 
@@ -346,14 +346,14 @@ any multilingual Web collection. This entails finding answers to questions where
 agreement is low.}
 
 We aim to build a system that can successfully retrieve relevant information from open-domain and 
-informal-language content. In this scenario, two common assumptions fail:\ i) we can accurately classify questions via template 
-patterns (Chaturvedi et al. argue that this does not hold for non-factoid questions~\cite{Chaturvedi:2014aa})
-and ii) we can accurately determine the relevance of an answer, based on its automatic translation into English (Wees et al. 
+informal-language content. In this scenario, two common assumptions fail:\ (i) we can accurately classify questions via template 
+patterns (Chaturvedi et al. argue that this does not hold for non-factoid questions~\cite{Chaturvedi:2014aa}),
+and (ii) we can accurately determine the relevance of an answer, based on its one-best translation into English (Wees et al. 
 show how recall decreases when translating user-generated text~\cite{Wees:2015aa}).
 
 Instead, we opted for a more adaptable approach, in which question-answer relevance is modeled 
-using a discriminative classifier that represents a function of features intended to capture the relationship between the question 
-and sentence text. We describe details throughout this section.
+using a discriminative classifier that represents a function of features intended to capture multiple aspects 
+between the question and sentence text. We describe details throughout this section.
 \ignore{
 Instead of relying solely on a single potentially incorrect English translation, we increase our chances of 
 a hit by translating both the question and the candidate answer, using four different translation methods.
@@ -409,7 +409,7 @@ translated sentence (i.e., {\em question-language} (QL) view).
 %predict (via training) the usefulness of each piece of evidence. 
 
 \textbf{Translation Method}:
-When translating text for retrieval tasks like QA, including a variety of alternative translations is as important as finding the most accurate 
+When translating text for retrieval tasks, including a variety of alternative translations is as important as finding the most accurate 
 translation, especially for non-factoid questions, where capturing (potentially multiple) underlying topics is essential.
 %the objective is not to find the most accurate translation, since representing alternative
 %translations can improve system recall. Instead, we aim to generate a more 
@@ -421,40 +421,37 @@ translation, especially for non-factoid questions, where capturing (potentially 
 %We hypothesize that these improvements transfer to multilingual QA as well. 
 We explored four \emph{translation methods} for translating
 the English question into Arabic and Chinese. Each method outputs a probability distribution for 
-each question word, expressing the translation space in the collection language:
+each question word, expressing the translation space in the collection language.\footnote{We omit details due to space 
+restrictions. See referenced papers for more details.}
 %(details of first three methods can be found in \cite{Ture:2014aa}, fourth method is a slight
 %variation of the lexical neural network translation model described in \cite{Devlin:2014}):}
 
 %\begin{description}[topsep=0pt,itemsep=0ex,partopsep=1ex,parsep=1ex]
 
-\noindent \underline{\emph{Word}}: In MT, a word alignment is a many-to-many mapping between source- and target-language words,
-learned without supervision, at the beginning of the training pipeline~\cite{Och:2003a}.
-These alignments can be converted into word translation probabilities~\cite{Darwish:2003aa}.
+\noindent \underline{\emph{Word}}: A word alignment is a many-to-many mapping between source- and target-language words,
+learned without supervision, during the MT training pipeline~\cite{Och:2003a}, which 
+can be converted into word translation probabilities~\cite{Darwish:2003aa}.\\
 %In CLIR, it is common to compute word translation probabilities from word alignments~\cite{Darwish:2003aa}. \\
-For example, in an English-Arabic parallel corpus, if an English word appears $m$ times in total and is aligned to a certain Arabic 
-word $k$ times, we assign a probability of $\frac{k}{m}$ for this translation. This simple idea has performed greatly in IR for 
-generating a probability distribution for query word translations.\\
-\underline{\emph{Grammar}}: Probabilities can be derived from a synchronous context-free grammar, which is a typical
-translation model found in MT systems~\cite{Ture:2014aa}. 
-The grammar contains rules $r$ that follow the form {\tt $\alpha$ || $\beta$ || $\mathcal{A}$ || $\ell(r)$}, 
-stating that source-language word $\alpha$ can be translated into target-language word $\beta$, with an associated likelihood value 
-$\ell(r)$. $\mathcal{A}$ represents the word alignments.
-For each rule $r$ that applies to the question text, we identify each source word $s_j$. From the word
-alignment information included in the rule, we can find all target words that $s_j$ is aligned to.
+%For example, in an English-Arabic parallel corpus, if an English word appears $m$ times in total and is aligned to a certain Arabic 
+%word $k$ times, we assign a probability of $\frac{k}{m}$ for this translation. This simple idea has performed greatly in IR for 
+%generating a probability distribution for query word translations.\\
+\underline{\emph{Grammar}}: Probabilities can be derived from a synchronous context-free grammar, a typical
+translation model found in MT systems~\cite{Ture:2014aa}. Grammar contains rules that show how source phrases
+are translated into target phrases, with corresponding likelihood values.
 By processing all the rules to accumulate likelihood values, we can construct translation probabilities for each word in the question.\\
 \underline{\emph{10-best}}: Statistical MT systems can output a ranked list of translations, instead of the single best. 
 Ture and Lin exploited this to obtain word translation probabilities from the top 10 translations of the question~\cite{Ture:2014aa}.\\
-For each question word $w$, we can extract which grammar rules were used to produce the translation -- once we have the
-rules, word alignments allow us to find all target-language words that $w$ translates into.
-By doing this for each question translation, we construct a probability distribution that defines the translation space of each
-question word.\\
+%For each question word $w$, we can extract which grammar rules were used to produce the translation -- once we have the
+%rules, word alignments allow us to find all target-language words that $w$ translates into.
+%By doing this for each question translation, we construct a probability distribution that defines the translation space of each
+%question word.\\
 \underline{\emph{Context}}: Neural network-based MT models learn context-dependent word translation probabilities -- 
 the probability of a target word is dependent on the source word it aligns to, as well as a 5-word window of context~\cite{Devlin:2014}.\\
-We modify the context-dependent lexical translation model from \cite{Devlin:2014} for question 
-translation.  
-However questions are sometimes not part of a full, well-formed sentence, so we randomly replace 
-words in the window with a special filler token. This teaches the model how to accurately translate with full context, partial 
-context, and no context.\\
+%We modify the context-dependent lexical translation model from \cite{Devlin:2014} for question 
+%translation.  
+%However questions are sometimes not part of a full, well-formed sentence, so we randomly replace 
+%words in the window with a special filler token. This teaches the model how to accurately translate with full context, partial 
+%context, and no context.\\
 
 %When comparing these methods, it is important to note that every method has its strengths 
 %and weaknesses.
@@ -489,7 +486,7 @@ on each combination of translation direction and method.
 %Each Arabic or Chinese sentence is converted 
 %into a frequency vector, from which we compute the cosine similarity with each of the four query representations, resulting in four real-valued 
 %lexical similarity features in the CL view (we call these {\tt LexCL}). 
-Following shows how the probabilistic structure of $q_{{\tt grammar}}$ is converted into a single real-valued vector:
+Following shows how the probabilistic structure of $q_{{\tt grammar}}$ is converted into a single real-valued vector,
 by averaging values for each Chinese word across the three distributions.
 Similarly, a candidate answer in Chinese is represented by scoring each word by its frequency, and cosine similarity
 is computed between the two vectors $v_{q_{{\tt grammar}}}$ and $v_s$.
@@ -516,11 +513,13 @@ called \emph{LexCL}.
 As mentioned before, we also obtain a similarity value by translating the sentence ($s_{\textrm{1best}}$) 
 and computing the cosine similarity with the original question ($q$). Although it is possible to translate the 
 sentence into English using the same four methods, we only used the one-best translation due to the computational 
-cost. Hence, we have only one lexical similarity feature in the QL view (call \emph{LexQL}).
+cost.\footnote{This decision was primarily due to the time restrictions in our deployed application. Otherwise, it is
+quite straightforward to include those features as well.} Hence, we have only one lexical similarity feature in the QL 
+view (called \emph{LexQL}).
 After computation, feature weights are learned via a maximum-entropy model.\footnote{Support vector machines 
 yielded worse results.} We also include the 
-same set of features from the previous sentence to represent the larger discourse.\red{A wider context did not
-show further improvements in validation}
+same set of features from the previous sentence to represent the larger discourse.\footnote{A wider context did not
+show further improvements.}
 
 %For \emph{semantic similarity} features, we first parse the question $q$ (and translated sentence 
 %$s_{\textrm{1best}}$), and then extract predicate-argument pairs into a \emph{text graph} $g_q$ 
@@ -599,12 +598,11 @@ show further improvements in validation}
 %\end{table}
 % DATA SELECTION
 \subsection{Data Selection} \label{sec:data}
-There are at least two reasons why selecting training data based on language might benefit MLQA:\\
+There are at least two reasons why selecting training data based on language might benefit MLQA:\
 %\begin{enumerate}[topsep=0pt,partopsep=1ex]
-i) Separating translation quality from relevance:\ If translation has errors, relevant answers might 
+(i) If translation has errors, relevant answers might 
 be judged as non-relevant. Training on this data might lead to a tendency to favor 
-English answers higher than Arabic or Chinese.\\
-ii) Filtering out noisy labels: 
+English answers higher than Arabic or Chinese, and (ii)
 %Answers extracted from non-English posts were annotated in one or both of two ways:\ 
 %based on the original text, or based on its English translation (since the task requires returning answers in English). 
 Since some pairs were annotated in both original language and English translation, independently, we can remove 
@@ -615,13 +613,10 @@ inconsistent ones from training.
 
 In order to explore further, we generated seven different subsets of the training set by filtering instances with respect to (i) the 
 original \emph{language} of the answer, or (ii) the language of \emph{annotation} (i.e., based on original text or its
-English translation):\\
-\underline{\em lang=en}: Sentences from the English corpus.\\
-\underline{\em  lang=ar/ch}: Sentences from the Arabic / Chinese corpus (regardless of how it was judged).\\
-\underline{\em annot=consist}: All sentences except those that were judged inconsistently.\\
-\underline{\em annot=src+}: Sentences judged only in original text, or judged in both consistently.\\
-\underline{\em  annot=en+}: Sentences that are judged either only in English, or judged in both original and English translation consistently.\\
-%\underline{\em all}: All sentences.
+English translation): Sentences from the English corpus ({\tt lang=en}), sentences from the Arabic / Chinese corpus (
+{\tt lang=ar/ch}), sentences that were judged consistently ({\tt annot=consist}), sentences judged only in original text, 
+or judged in both consistently ({\tt annot=src+}), sentences judged only in English, or judged in both consistently ({\tt  annot=en+}),
+or all sentences.
 \vspace{-0.35cm}
 
 % 1. Pipeline
@@ -632,27 +627,26 @@ English translation):\\
 
 \section{Evaluation}\label{sec:eval}
 In order to perform controlled experiments and gain more 
-insights, we split our evaluation into four separate tasks:\ three tasks focus on retrieving answers from posts written in a specified language 
-(\emph{English-only}, \emph{Arabic-only}, or \emph{Chinese-only}), and the last task is not restricted to any language 
+insight, we split our evaluation into four separate tasks:\ retrieval of answers from posts written in a specified language 
+(\emph{English-only (Eng)}, \emph{Arabic-only (Arz)}, or \emph{Chinese-only (Cmn)}), and retrieval without any restriction
 (\emph{Mixed-language}). 
-
 %Hypotheses H1, H2, and H3 were tested by comparing effectiveness under various classifier settings (changing the feature 
 %set and training data). We repeated this for each task, since the effect might be task- or language-dependent. 
 %Hypothesis H4 was tested by comparing the effectiveness of the two MLQA approaches described in Section~\ref{sec:oneclassperlang} 
 %(\emph{L2T} and \emph{L2CT}).
 %The rationale behind treating each separately is the hypothesis that 
 %the classifier that works best for one task might not be optimal for another task.
-
-All experiments were conducted on the IR evaluation task of the DARPA BOLT 
-program. The collection consists of 12.6m Arabic, 7.5m Chinese, and 9.6m English Web forum posts, and a 
-set of 45 non-factoid (mostly opinion and causal) English questions, all of which is preprocessed with 
-sentence-splitting, named entity recognition, coreference resolution, parsing, and part-of-speech tagging. 
+All experiments were conducted on the DARPA BOLT IR task, on a collection of 12.6m Arabic, 
+7.5m Chinese, and 9.6m English Web forum posts, and a 
+set of 45 non-factoid (mostly opinion and causal) English questions
+%, all of which is preprocessed with 
+%sentence-splitting, named entity recognition, coreference resolution, parsing, and part-of-speech tagging. 
 All non-English posts were translated into English, and all questions were translated into Arabic and Chinese,
-using state-of-the-art English$\leftrightarrow$Arabic (En-Ar) and English$\leftrightarrow$Chinese 
-(En-Ch) MT systems~[reference removed for anonymization]. 
+using state-of-the-art Eng-Arz and Eng-Cmn MT systems~\cite{Devlin:2014}. 
 The translation models were trained on parallel corpora from NIST OpenMT 2012, in addition to parallel forum 
-data collected as part of the BOLT program (10m En-Ar words; 30m En-Ch words). 
-From these data, word alignments were learned with GIZA++~\cite{Och:2003} (five iterations of IBM Models 1--4 
+data collected as part of the BOLT program (10m Eng-Arz words; 30m Eng-Cmn words). 
+From these data, word alignments were learned with GIZA++ (five iterations of IBM Models 1--4 
+%~\cite{Och:2003}
 and HMM). While we only used the 
 one-best English translation for sentences, we applied the probabilistic translation methods from Section~\ref{sec:repr} 
 to questions. 
@@ -688,46 +682,6 @@ a single similarity score between question and translated text, and matching the
 published system by Chaturvedi et al on the BOLT evaluation~\cite{Chaturvedi:2014aa}. Baseline MAP values are 
 reported on the leftmost column of Table~\ref{tab:controlled}.
 
-%\red{How much weight did each feature get in classifier training?}
-\textbf{Data effect}: In the baseline approach, we do not perform any data selection, and use all available data for training the
-classifier. In order to test our hypothesis that selecting a linguistically-motivated subset of the training data
-might help, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
-Section~\ref{sec:data}). Results indicate that including English or Arabic sentences when training a classifier 
-for Chinese-only QA is a bad idea, since effectiveness increases when restricted to Chinese sentences ({\tt lang=ch}).
-On the other hand, for the remaining three tasks, the most effective training data set is {\tt annot=en+consist}.
-These selections are consistent across all ten folds, and the difference is statistically significant for all but Arabic-only.
-The second column in Table~\ref{tab:controlled} displays the MAP achieved when data selection is applied
-before training the baseline model.
-
-%In the lower part of Table~\ref{tab:controlled}, we reversed the scenario, by fixing the training data set, and using 
-%10-fold cross-validation to select the optimal feature set. For the mixed-language and English-only tasks, best MAP is 
-%achieved with the \emph{data set 7}. For Chinese-only QA, training on \emph{data set 4} yields statistically significant 
-%improvements ($p<0.05$). Our findings support hypothesis H3 and suggest that the linguistic characteristics of data 
-%deserves as much attention as its size -- specifically, we observed that including English or Arabic sentences when training 
-%a classifier for Chinese-only QA is a bad idea; same can be said for including sentences that were annotated in 
-%source-language only, when training a mixed-language classifier. 
-
-\textbf{Feature effect}: In order to measure the impact of our novel features (Section~\ref{sec:feat}), we trained classifiers using either
-\emph{LexCL}, \emph{LexQL}, or \emph{both} feature sets. In these experiments, the data is fixed to the
-optimal subset found earlier. Results are summarized on left side of Table~\ref{tab:controlled}. Statistically
-significants improvements over {\em Baseline} and {\em Baseline+Data selection} are indicated with single 
-and double underlining, respectively.
- 
-%Given the strong baseline, we measured the effect of adding our
-%features on top of \emph{SemQL}, considering all eight subsets of the remaining three feature categories. 
-%For each feature set, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
-%Section~\ref{sec:data}), as shown in the upper part of Table~\ref{tab:controlled}. 
-For Arabic-only QA, adding \emph{LexQL} features yields greatest improvements over the baseline, 
-while the same statement holds for \emph{LexCL} features for the Chinese-only task.
-For the English-only and mixed-language tasks, the most significant increase in MAP is observed 
-with all of our probabilistic bilingual features. For all but Arabic-only QA, the MAP is statistically significantly 
-better ($p<0.05$) than the baseline; for Chinese-only and mixed-language tasks, it also outperforms baseline 
-plus data selection ($p<0.05$).\footnote{Note that bilingual features are not expected to help on the 
-English-only task, and the improvements come solely from data selection.}
-%only base+LexQL did not create significant improvements over baseline, which was the only
-%feature set without bilingual features. 
-All of this indicates the effectiveness of our bilingual features and probabilistic question translation, 
-as well as our data selection strategy.
 
 
 %\setlength{\tabcolsep}{.25em}
@@ -743,9 +697,10 @@ Cmn & 0.416 & \underline{0.425} & cmn-only & \underline{\underline{ 0.451 }} & L
 Eng & 0.637 & \underline{0.657} & eng+ & \underline{ 0.660 } & all  \\ \hline
 Mixed & 0.665 & \underline{0.675} & eng+ & \underline{\underline{ 0.681} } & all \\ \hline
 \end{tabular}
-%\vspace{-0.2cm}
+\vspace{-0.1cm}
 \caption{{\small Statistically significant increase over \emph{baseline} and \emph{+Data} are underlined 
 (MAP with 10-fold cross-validation).}}
+\vspace{-0.1cm}
 \label{tab:controlled}
 \end{small}
 
@@ -761,6 +716,49 @@ Mixed & 0.665 & \underline{0.675} & eng+ & \underline{\underline{ 0.681} } & all
 %\end{tabular}\label{tab:best}
 %\end{table}
 
+%\red{How much weight did each feature get in classifier training?}
+\textbf{Data effect}: In the baseline approach, we do not perform any data selection, and use all available data for training the
+classifier. In order to test our hypothesis that selecting a linguistically-motivated subset of the training data
+might help, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
+Section~\ref{sec:data}). Results indicate that including English or Arabic sentences when training a classifier 
+for Chinese-only QA is a bad idea, since effectiveness increases when restricted to Chinese sentences ({\tt lang=ch}).
+On the other hand, for the remaining three tasks, the most effective training data set is {\tt annot=en+consist}.
+These selections are consistent across all ten folds, and the difference is statistically significant for all but Arabic-only.\footnote{All 
+statistical significance tests are based on \cite{Smucker:2007} ($p<0.05$).}
+The second column in Table~\ref{tab:controlled} displays the MAP achieved when data selection is applied
+before training the baseline model.
+
+%In the lower part of Table~\ref{tab:controlled}, we reversed the scenario, by fixing the training data set, and using 
+%10-fold cross-validation to select the optimal feature set. For the mixed-language and English-only tasks, best MAP is 
+%achieved with the \emph{data set 7}. For Chinese-only QA, training on \emph{data set 4} yields statistically significant 
+%improvements ($p<0.05$). Our findings support hypothesis H3 and suggest that the linguistic characteristics of data 
+%deserves as much attention as its size -- specifically, we observed that including English or Arabic sentences when training 
+%a classifier for Chinese-only QA is a bad idea; same can be said for including sentences that were annotated in 
+%source-language only, when training a mixed-language classifier. 
+
+\textbf{Feature effect}: To measure the impact of our novel features (Section~\ref{sec:feat}), we trained classifiers using either
+\emph{LexCL}, \emph{LexQL}, or \emph{both} feature sets. In these experiments, the data is fixed to the
+optimal subset found earlier. Results are summarized on left side of Table~\ref{tab:controlled}. Statistically
+significants improvements over {\em Baseline} and {\em Baseline+Data selection} are indicated with single 
+and double underlining, respectively.
+ 
+%Given the strong baseline, we measured the effect of adding our
+%features on top of \emph{SemQL}, considering all eight subsets of the remaining three feature categories. 
+%For each feature set, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
+%Section~\ref{sec:data}), as shown in the upper part of Table~\ref{tab:controlled}. 
+For Arabic-only QA, adding \emph{LexQL} features yields greatest improvements over the baseline, 
+while the same holds for \emph{LexCL} features in the Chinese-only task.
+For the English-only and mixed-language tasks, the most significant increase in MAP is observed 
+with all of our probabilistic bilingual features. For all but Arabic-only QA, the MAP is statistically significantly 
+better than the baseline; for Chinese-only and mixed-language tasks, it also outperforms baseline 
+plus data selection.\footnote{Note that bilingual features are not expected to help on the 
+English-only task, and the improvements come solely from data selection.}
+%only base+LexQL did not create significant improvements over baseline, which was the only
+%feature set without bilingual features. 
+All of this indicates the effectiveness of our bilingual features and probabilistic question translation, 
+as well as our data selection strategy.
+
+
 %While we notice that adding {\tt LexCL} features appear to have a positive effect in many cases, 
 
 Understanding the contribution of each of the four \emph{LexCL} features is also important. To gain insight, we 
@@ -772,14 +770,13 @@ incrementally removed one of the features, and tested on the same task.
 This controlled experiment revealed that the \emph{word} translation feature is most useful for Chinese-only 
 QA (i.e., removing it produces largest drop in MAP, 0.6 points), whereas \emph{context} translation appears 
 to be most useful (by a slighter margin) in Arabic-only QA. In the former case, the diversity provided by
-word translation might be useful at increasing recall in retrieving Chinese answers. In retrieving Arabic
+word translation might be increasing recall in retrieving Chinese answers. In retrieving Arabic
 answers, using context to disambiguate the translation might be useful at increasing precision. This result
 further emphasizes the importance of a customized translation approach for MLQA.
 
-Furthermore, to test the effectiveness of the 
-probabilistic translation approach (Section~\ref{sec:repr}), we replaced all {\em LexCL} features with a 
-single lexical similarity feature computed from the one-best question translation. This resulted
-in lower MAP:\ 0.427 to 0.423 for Arabic-only, and 0.451 to 0.425 for Chinese-only task ($p < 0.01$), 
+Furthermore, to test the effectiveness of probabilistic translation (Section~\ref{sec:repr}), we replaced all 
+{\em LexCL} features with a single lexical similarity feature computed from the one-best question translation. 
+This resulted in lower MAP:\ 0.427 to 0.423 for Arabic-only, and 0.451 to 0.425 for Chinese-only task ($p < 0.01$), 
 supporting the hypothesis that \emph{probabilistic translation is more effective than the widely-used 
 one-best translation}. In fact, almost all gains in Chinese-only QA seems to be coming from the
 probabilistic translation.
@@ -787,9 +784,9 @@ probabilistic translation.
 To test the robustness of our approach, we let cross-validation select the best combination of 
 (\emph{data}, \emph{feature}), mimicking a less controlled, real-world setting. In this case, the best 
 MAP for the Arabic-only, Chinese-only, English-only, and Mixed-language tasks are 0.403, 0.448, 0.657, and 
-0.679, respectively. In all but Arabic-only, these are statistically significantly better ($p < 0.05$) than 
+0.679, respectively. In all but Arabic-only, these are statistically significantly better than 
 not tuning the feature set or training data (i.e., Baseline). This result provides support that our approach
-can be used for any MLQA task out of the box, and provide improvements.
+can be used out of the box for a given MLQA task.
 %To summarize the results, we report the best MAP for each subtask in the left side of Table~\ref{tab:multiple}. 
 %Right below MAP, the improvement over the baseline approach is shown for reference, with an asterisk mark if 
 %statistically significant.
@@ -814,8 +811,8 @@ can be used for any MLQA task out of the box, and provide improvements.
 %forum posts. This task represents a real-life scenario of searching through a diverse, informal, multilingual
 %Web collection, with many challenges relevant to the QA research literature.
 
-Our experimental analysis makes a strong case on how probabilistic
-translation-based features and language-inspired data selection can improve QA effectiveness.
+Our experimental analysis makes a strong case on how our novel approach (i.e., probabilistic
+translation-based features and language-inspired data selection) can improve QA effectiveness. 
 %Results did not support the hypothesis that learning a custom classifier for the retrieval of each language separately 
 %would outperform the \emph{single classifier} baseline, but we still think that more research is needed to fully 
 %understand how language-sensitive modeling can benefit MLQA. 
