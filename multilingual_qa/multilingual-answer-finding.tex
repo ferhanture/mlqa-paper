@@ -465,8 +465,7 @@ context, and no context.\\
 \vspace{-0.25cm}
 For example, the question ``Tell me about child 
 labor in Africa", which is simplified by our preprocessing engine to ``child labor in Africa", is translated into the following 
-probabilistic structure:
-% by \emph{grammar} translation.
+probabilistic structure ($q_{{\tt grammar}}$) by \emph{grammar} translation.
 
 %\begin{figure}[h!]
 \includegraphics[width=7cm]{example.pdf}
@@ -490,19 +489,20 @@ on each combination of translation direction and method.
 %Each Arabic or Chinese sentence is converted 
 %into a frequency vector, from which we compute the cosine similarity with each of the four query representations, resulting in four real-valued 
 %lexical similarity features in the CL view (we call these {\tt LexCL}). 
-Following figure shows how the probabilistic structure is converted into a single real-valued vector:
-by averaging values for each Chinese word across the three distributions:
+Following shows how the probabilistic structure of $q_{{\tt grammar}}$ is converted into a single real-valued vector:
+by averaging values for each Chinese word across the three distributions.
+Similarly, a candidate answer in Chinese is represented by scoring each word by its frequency, and cosine similarity
+is computed between the two vectors $v_{q_{{\tt grammar}}}$ and $v_s$.
+
 \includegraphics[width=7cm]{example2.pdf}
 
 %shows how each English question word is represented by a probability distribution over the Chinese 
 %vocabulary, using grammar translation. We convert this into a single real-valued vector by averaging values for each Chinese word across 
 %the three distributions. 
-Similarly, a candidate answer $s$ in Chinese is represented by scoring each word by its frequency. Given the two vectors, 
-we compute the cosine similarity.
 %:\ 
 %$\sum_{\textrm{word }w} v_{q_{\textrm{grammar}}}(w) v_s(w) / |v_{q_{\textrm{grammar}}}| |v_s|$. 
-The same process is repeated for the 
-other three translation methods. These four lexical collection-language similarity features are collectively called \emph{LexCL}.
+This process is repeated for each of the four translation methods, generating four lexical collection-language similarity features 
+called \emph{LexCL}.
 %, are shown in Figure~\ref{fig:features} and described in Table~\ref{tab:features}.
 %\vspace{-0.3cm}
 %\begin{figure}[h!]
@@ -517,8 +517,8 @@ As mentioned before, we also obtain a similarity value by translating the senten
 and computing the cosine similarity with the original question ($q$). Although it is possible to translate the 
 sentence into English using the same four methods, we only used the one-best translation due to the computational 
 cost. Hence, we have only one lexical similarity feature in the QL view (call \emph{LexQL}).
-After computation, feature weights are learned via a maximum-entropy model.\footnote{We also 
-tried support vector machines and noticed worse results.} We also include the 
+After computation, feature weights are learned via a maximum-entropy model.\footnote{Support vector machines 
+yielded worse results.} We also include the 
 same set of features from the previous sentence to represent the larger discourse.\red{A wider context did not
 show further improvements in validation}
 
