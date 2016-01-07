@@ -439,8 +439,8 @@ can be converted into word translation probabilities~\cite{Darwish:2003aa}.\\
 translation model found in MT systems~\cite{Ture:2014aa}. Grammar contains rules that show how source phrases
 are translated into target phrases, with corresponding likelihood values.
 By processing all the rules to accumulate likelihood values, we can construct translation probabilities for each word in the question.\\
-\underline{\emph{10-best}}: Statistical MT systems can output a ranked list of translations, instead of the single best. 
-Ture and Lin exploited this to obtain word translation probabilities from the top 10 translations of the question~\cite{Ture:2014aa}.\\
+\underline{\emph{10-best}}: Statistical MT systems can output a ranked list of translations, instead of the single best, which 
+can be exploited to obtain word translation probabilities from the top 10 translations of a question~\cite{Ture:2014aa}.\\
 %For each question word $w$, we can extract which grammar rules were used to produce the translation -- once we have the
 %rules, word alignments allow us to find all target-language words that $w$ translates into.
 %By doing this for each question translation, we construct a probability distribution that defines the translation space of each
@@ -469,8 +469,9 @@ probabilistic structure ($q_{{\tt grammar}}$) by \emph{grammar} translation.
 %\caption{Probabilistic grammar-based translation of example question $q$ (call this $q_{\textrm{grammar}}$).}
 % \label{fig:example} 
 %\end{figure}
+\vspace{-0.1cm}
 
-We are not aware of any other MLQA approach that represents the question-answer pair based on their probabilistic translation
+We are unaware of any MLQA approach representing question answer pair based on their probabilistic translation
 space.
  
 \subsection{Features}\label{sec:feat}
@@ -491,6 +492,7 @@ by averaging values for each Chinese word across the three distributions.
 Similarly, a candidate answer in Chinese is represented by scoring each word by its frequency, and cosine similarity
 is computed between the two vectors $v_{q_{{\tt grammar}}}$ and $v_s$.
 
+\vspace{-0.1cm}
 \includegraphics[width=7cm]{example2.pdf}
 
 %shows how each English question word is represented by a probability distribution over the Chinese 
@@ -671,16 +673,15 @@ verified that conclusions do not change with $k$ set to 50, 100, or 150.} %(we a
 %\vspace{-0.2cm}
 
 \textbf{Baseline}: As described earlier, the baseline system computes similarity between question text and the one-best 
-translation of the candidate answer (we run the sentence through our state-of-the-art MT system). After translation, we 
-compute similarity via scoring the match between the parse of the question text and the parse of the candidate answer, 
-using our finely-tuned IE toolkit~[reference removed for anonymization].
+translation of the candidate answer by parse-tree-based scoring~[reference removed for anonymization].
 %~\cite{Freedman:2011aa}. 
 This results in three different similarity features:\ matching the tree node similarity, 
-edge similarity, and full tree similarity. Feature weights are then learned by training this classifier discriminatively on the 
-training data described above. This already performs competitively, outperforming the simpler baseline where we compute 
-a single similarity score between question and translated text, and matching the performance of the recently 
-published system by Chaturvedi et al on the BOLT evaluation~\cite{Chaturvedi:2014aa}. Baseline MAP values are 
-reported on the leftmost column of Table~\ref{tab:controlled}.
+edge similarity, and full tree similarity, weights of which are learned on the same training data. 
+This already performs competitively, outperforming the simpler baseline where we compute 
+a single similarity score between question and translated text, and \red{matching the performance} of the recently 
+published system by Chaturvedi et al on the BOLT evaluation~\cite{Chaturvedi:2014aa}. 
+%Baseline MAP values are 
+%reported on the leftmost column of Table~\ref{tab:controlled}.
 
 
 
@@ -693,9 +694,9 @@ reported on the leftmost column of Table~\ref{tab:controlled}.
 \multirow{2}{*}{\textbf{Task}} & \multicolumn{5}{|c|}{\textbf{L2T}}  \\ \cline{2-6}
 	& \textbf{Baseline} & \multicolumn{2}{c|}{\textbf{+Data}} & \multicolumn{2}{c|}{\textbf{+Feats}}  \\ \hline
 Arz & 0.421 & 0.423 & eng+ & { 0.425 } & LexQL   \\ \cline{1-6}
-Cmn & 0.416 & \underline{0.425} & cmn-only & \underline{\underline{ 0.451 }} & LexCL  \\ \cline{1-6}
+Cmn & 0.416 & \underline{0.425} & cmn-only & \uuline{ 0.451 } & LexCL  \\ \cline{1-6}
 Eng & 0.637 & \underline{0.657} & eng+ & \underline{ 0.660 } & all  \\ \hline
-Mixed & 0.665 & \underline{0.675} & eng+ & \underline{\underline{ 0.681} } & all \\ \hline
+Mixed & 0.665 & \underline{0.675} & eng+ & \uuline{ 0.681 } & all \\ \hline
 \end{tabular}
 \vspace{-0.1cm}
 \caption{{\small Statistically significant increase over \emph{baseline} and \emph{+Data} are underlined 
@@ -717,16 +718,15 @@ Mixed & 0.665 & \underline{0.675} & eng+ & \underline{\underline{ 0.681} } & all
 %\end{table}
 
 %\red{How much weight did each feature get in classifier training?}
-\textbf{Data effect}: In the baseline approach, we do not perform any data selection, and use all available data for training the
-classifier. In order to test our hypothesis that selecting a linguistically-motivated subset of the training data
+\textbf{Data effect}: In the baseline, we do not perform any data selection, and use all available data for training the
+classifier. To test our hypothesis that selecting a linguistically-motivated subset of the training data
 might help, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
-Section~\ref{sec:data}). Results indicate that including English or Arabic sentences when training a classifier 
-for Chinese-only QA is a bad idea, since effectiveness increases when restricted to Chinese sentences ({\tt lang=ch}).
-On the other hand, for the remaining three tasks, the most effective training data set is {\tt annot=en+consist}.
+Section~\ref{sec:data}). As a result, we find that including English or Arabic sentences when training a classifier 
+for Chinese-only QA is a bad idea, since the most effective dataset is {\tt lang=ch}.
+For the remaining three tasks, the chosen data set is {\tt annot=en+}.
 These selections are consistent across all ten folds, and the difference is statistically significant for all but Arabic-only.\footnote{All 
 statistical significance tests are based on \cite{Smucker:2007} ($p<0.05$).}
-The second column in Table~\ref{tab:controlled} displays the MAP achieved when data selection is applied
-before training the baseline model.
+%Table~\ref{tab:controlled} displays the MAP achieved when training data selection is applied.
 
 %In the lower part of Table~\ref{tab:controlled}, we reversed the scenario, by fixing the training data set, and using 
 %10-fold cross-validation to select the optimal feature set. For the mixed-language and English-only tasks, best MAP is 
@@ -737,17 +737,18 @@ before training the baseline model.
 %source-language only, when training a mixed-language classifier. 
 
 \textbf{Feature effect}: To measure the impact of our novel features (Section~\ref{sec:feat}), we trained classifiers using either
-\emph{LexCL}, \emph{LexQL}, or \emph{both} feature sets. In these experiments, the data is fixed to the
-optimal subset found earlier. Results are summarized on left side of Table~\ref{tab:controlled}. Statistically
+\emph{LexCL}, \emph{LexQL}, or \emph{all} feature sets. In these experiments, the data is fixed to the
+optimal subset found earlier. 
+
+All results are summarized in Table~\ref{tab:controlled}. In the last column, statistically
 significants improvements over {\em Baseline} and {\em Baseline+Data selection} are indicated with single 
-and double underlining, respectively.
- 
+and double underlining, respectively. 
 %Given the strong baseline, we measured the effect of adding our
 %features on top of \emph{SemQL}, considering all eight subsets of the remaining three feature categories. 
 %For each feature set, we used 10-fold cross-validation to choose the optimal data set (among seven options described in 
 %Section~\ref{sec:data}), as shown in the upper part of Table~\ref{tab:controlled}. 
 For Arabic-only QA, adding \emph{LexQL} features yields greatest improvements over the baseline, 
-while the same holds for \emph{LexCL} features in the Chinese-only task.
+while the same holds for \emph{LexCL} in the Chinese-only task.
 For the English-only and mixed-language tasks, the most significant increase in MAP is observed 
 with all of our probabilistic bilingual features. For all but Arabic-only QA, the MAP is statistically significantly 
 better than the baseline; for Chinese-only and mixed-language tasks, it also outperforms baseline 
@@ -757,7 +758,6 @@ English-only task, and the improvements come solely from data selection.}
 %feature set without bilingual features. 
 All of this indicates the effectiveness of our bilingual features and probabilistic question translation, 
 as well as our data selection strategy.
-
 
 %While we notice that adding {\tt LexCL} features appear to have a positive effect in many cases, 
 
@@ -781,7 +781,7 @@ supporting the hypothesis that \emph{probabilistic translation is more effective
 one-best translation}. In fact, almost all gains in Chinese-only QA seems to be coming from the
 probabilistic translation.
 
-To test the robustness of our approach, we let cross-validation select the best combination of 
+To test robustness of our approach, we let cross-validation select the best combination of 
 (\emph{data}, \emph{feature}), mimicking a less controlled, real-world setting. In this case, the best 
 MAP for the Arabic-only, Chinese-only, English-only, and Mixed-language tasks are 0.403, 0.448, 0.657, and 
 0.679, respectively. In all but Arabic-only, these are statistically significantly better than 
