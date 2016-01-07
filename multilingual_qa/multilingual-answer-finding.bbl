@@ -4,7 +4,7 @@
 S.~Adafre and J.~van Genabith.
 \newblock Dublin city university at qaclef 2008.
 \newblock In volume 5706 of
-  {\em Lecture Notes in Computer Science}, pages 353--360. 2009.
+  {\em LNCS}. 2009.
 
 \bibitem{Agarwal:2012aa}
 A.~Agarwal, H.~Raghavan, K.~Subbian, P.~Melville, R.~D. Lawrence, D.~C. Gondek,
@@ -15,31 +15,30 @@ A.~Agarwal, H.~Raghavan, K.~Subbian, P.~Melville, R.~D. Lawrence, D.~C. Gondek,
 \bibitem{Bendersky:2010aa}
 M.~Bendersky, D.~Metzler, and W.~B. Croft.
 \newblock Learning concept importance using a weighted dependence model.
-\newblock In {\em Proceedings of WSDM '10}, pages 31--40, 2010.
-  ACM.
+\newblock In {\em Proceedings of WSDM}, pages 31--40, 2010.
 
 \bibitem{Chaturvedi:2014aa}
 S.~Chaturvedi, V.~Castelli, R.~Florian, R.~M. Nallapati, and H.~Raghavan.
 \newblock {Joint Question Clustering and Relevance Prediction for Open Domain
   Non-factoid Question Answering}.
-\newblock In {\em Proceedings of WWW '14}, pages 503--514, 2014.
+\newblock In {\em Proceedings of WWW}, pages 503--514, 2014.
 
 \bibitem{Darwish:2003aa}
 K.~Darwish and D.~W. Oard.
 \newblock {Probabilistic structured query methods}.
-\newblock In {\em Proceedings of SIGIR '03}, 2003.
+\newblock In {\em Proceedings of SIGIR}, 2003.
 
 \bibitem{Devlin:2014}
 J.~Devlin, R.~Zbib, Z.~Huang, T.~Lamar, R.~M. Schwartz, and J.~Makhoul.
 \newblock Fast and robust neural network joint models for statistical machine
   translation.
-\newblock In {\em Proceedings of {ACL} '14}, pages 1370--1380, 2014.
+\newblock In {\em Proceedings of {ACL}}, 2014.
 
 \bibitem{Espla-Gomis:2012aa}
 M.~Espl\`{a}-Gomis, F.~S\'{a}nchez-Mart\'{\i}nez, and M.~L. Forcada.
 \newblock {UAlacant: Using Online Machine Translation for Cross-lingual Textual
   Entailment}.
-\newblock In {\em Proceedings of the SemEval '12}, pages 472--476, 2012.
+\newblock In {\em Proceedings of the SemEval}, 2012.
 
 \bibitem{Garcia-Cumbreras:2012aa}
 M.~A. Garc\'{\i}a-Cumbreras, F.~Mart\'{\i}nez-Santiago, and L.~A. Ure\~{n}a
@@ -53,59 +52,54 @@ S.~Hartrumpf, I.~Gl{\~A}¶ckner, and J.~Leveling.
 \newblock Efficient question answering with question decomposition and multiple
   answer streams.
 \newblock In 
-  volume 5706 of {\em Lecture Notes in Computer Science}, pages 421--428.
-  Springer Berlin Heidelberg, 2009.
+  volume 5706 of {\em LNCS}, pages 421--428. 2009.
 
 \bibitem{Ko:2010ab}
 J.~Ko, L.~Si, E.~Nyberg, and T.~Mitamura.
 \newblock {Probabilistic Models for Answer-ranking in Multilingual
   Question-answering}.
-\newblock {\em ACM Trans. Inf. Syst.}, 28(3):16:1----16:37, July 2010.
+\newblock {\em ACM TOIS}, 28(3):16:1----16:37, July 2010.
 
 \bibitem{Lin:aa}
 C.-J. Lin and Y.-M. Kuo.
 \newblock Description of the {NTOU} complex {QA} system.
-\newblock In {\em Proceedings of NTCIR-8 Workshop}, 2010.
+\newblock In {\em Proceedings of NTCIR-8}, 2010.
 
 \bibitem{Madnani:2007aa}
 N.~Madnani, J.~Lin, and B.~J. Dorr.
-\newblock {TREC 2007 ciQA Task: University of Maryland}.
-\newblock {\em Proceedings of TREC '07}, 2007.
+\newblock {TREC ciQA Task: University of Maryland}.
+\newblock {\em Proceedings of TREC}, 2007.
 
 \bibitem{Martinez-Gonzalez:2009aa}
 {\~A}.~Martinez-Gonzalez, C.~de~Pablo-Sanchez, C.~Polo-Bayo, M.~Vicente-Diez,
   P.~Martinez-Fernandez, and J.~L. Martinez-Fernandez.
 \newblock The miracle team at the {CLEF} 2008 multilingual question answering
   track.
-\newblock In C.~Peters, T.~Deselaers, N.~Ferro, J.~Gonzalo, G.~Jones,
-  M.~Kurimo, T.~Mandl, A.~Pe{\~A}$\pm$as, and V.~Petras, editors, {\em
-  Evaluating Systems for Multilingual and Multimodal Information Access},
-  volume 5706 of {\em Lecture Notes in Computer Science}, pages 409--420.
+\newblock In volume 5706 of {\em LNCS}, pages 409--420.
   2009.
 
 \bibitem{Mehdad:2010aa}
 Y.~Mehdad, M.~Negri, and M.~Federico.
 \newblock {Towards Cross-lingual Textual Entailment}.
-\newblock In {\em Proceedings of NAACL-HLT '10}, pages 321--324, 2010.
+\newblock In {\em Proceedings of NAACL-HLT}, 2010.
 
 \bibitem{Metzler:2005}
 D.~Metzler and W.~B. Croft.
 \newblock {A Markov random field model for term dependencies}.
-\newblock In {\em Proceedings of SIGIR '05},
-  pages 472--479, 2005.
+\newblock In {\em Proceedings of SIGIR}, 2005.
 
 \bibitem{Mitamura:2006aa}
 T.~Mitamura, M.~Wang, H.~Shima, and F.~Lin.
 \newblock Keyword translation accuracy and cross-lingual question answering in
   chinese and japanese.
 \newblock In {\em Proceedings of the Workshop on Multilingual Question
-  Answering}, MLQA '06, pages 31--38, 2006.
+  Answering}, 2006.
 
 \bibitem{Munoz-Terol:2009aa}
 R.~Munoz-Terol, M.~Puchol-Blasco, M.~Pardino, J.~M. Gomez, S.~Roger, K.~Vila,
   A.~Ferrandez, J.~Peral, and P.~Martinez-Barco.
 \newblock Integrating logic forms and anaphora resolution in the aliqan system.
-\newblock In LNCS, pages 438--441. Springer Berlin Heidelberg, 2009.
+\newblock In LNCS, pages 438--441. 2009.
 
 \bibitem{Nie:2010}
 J.-Y. Nie.
@@ -116,12 +110,7 @@ J.-Y. Nie.
 \bibitem{Och:2003a}
 F.~J. Och.
 \newblock {Minimum error rate training in statistical machine translation}.
-\newblock In {\em Proceedings of ACL '03}, pages 160--167, 2003.
-
-\bibitem{Och:2003}
-F.~J. Och and H.~Ney.
-\newblock A systematic comparison of various statistical alignment models.
-\newblock {\em Computational Linguistics}, 29(1):19--51, 2003.
+\newblock In {\em Proceedings of ACL}, 2003.
 
 \bibitem{Ren:aa}
 H.~Ren, D.~Ji, and J.~Wan.
@@ -131,7 +120,7 @@ H.~Ren, D.~Ji, and J.~Wan.
 \bibitem{Robertson:2004}
 S.~Robertson, H.~Zaragoza, and M.~Taylor.
 \newblock {Simple \{BM25\} extension to multiple weighted fields}.
-\newblock In {\em Proceedings of CIKM '04}, pages 42--49, 2004.
+\newblock In {\em Proceedings of CIKM}, 2004.
 
 \bibitem{Sacaleanu:2008aa}
 B.~Sacaleanu, G.~Neumann, and C.~Spurk.
@@ -142,25 +131,29 @@ B.~Sacaleanu, G.~Neumann, and C.~Spurk.
 \bibitem{Shima:2010aa}
 H.~Shima and T.~Mitamura.
 \newblock Bootstrap pattern learning for open-domain clqa.
-\newblock In {\em Proceedings of NTCIR-8 Workshop}, 2010.
+\newblock In {\em Proceedings of NTCIR-8}, 2010.
+
+\bibitem{Smucker:2007}
+M.~D. Smucker, J.~Allan, and B.~Carterette.
+\newblock {A comparison of statistical significance tests for information retrieval evaluation}
+\newblock In {\em Proceedings of CIKM}, 2007.
 
 \bibitem{Ture:2014aa}
 F.~Ture and J.~Lin.
 \newblock Exploiting representations from statistical machine translation for
   cross-language information retrieval.
-\newblock {\em ACM Trans. Inf. Syst.}, 32(4):19:1--19:32, Oct. 2014.
+\newblock {\em ACM TOIS}, 32(4):19:1--19:32, Oct. 2014.
 
 \bibitem{Wees:2015aa}
 M.~Van~der Wees, A.~Bisazza, W.~Weerkamp, and C.~Monz.
 \newblock What's in a domain? analyzing genre and topic differences in
   statistical machine translation.
-\newblock In {\em Proceedings of ACL-IJCNLP '15 (Volume 2: Short Papers)}, pages 560--566,
-  2015.
+\newblock In {\em Proceedings of ACL-IJCNLP}, 2015.
 
 \bibitem{Zhang:2007aa}
 C.~Zhang, M.~Gerber, T.~Baldwin, S.~Emelander, J.~Chai, and R.~Jin.
-\newblock {Michigan State University at the 2007 TREC ciQA Task}.
-\newblock In {\em Proceedings of TREC '07},
+\newblock {Michigan State University at the TREC ciQA Task}.
+\newblock In {\em Proceedings of TREC},
   2007.
 
 \end{thebibliography}
