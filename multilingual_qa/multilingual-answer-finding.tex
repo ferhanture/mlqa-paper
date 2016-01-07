@@ -422,7 +422,7 @@ translation, especially for non-factoid questions, where capturing (potentially 
 We explored four \emph{translation methods} for translating
 the English question into Arabic and Chinese. Each method outputs a probability distribution for 
 each question word, expressing the translation space in the collection language.\footnote{We omit details due to space 
-restrictions. See referenced papers for more details.}
+restrictions. See \cite{Ture:2014aa} for more details.}
 %(details of first three methods can be found in \cite{Ture:2014aa}, fourth method is a slight
 %variation of the lexical neural network translation model described in \cite{Devlin:2014}):}
 
@@ -436,9 +436,9 @@ can be converted into word translation probabilities~\cite{Darwish:2003aa}.\\
 %word $k$ times, we assign a probability of $\frac{k}{m}$ for this translation. This simple idea has performed greatly in IR for 
 %generating a probability distribution for query word translations.\\
 \underline{\emph{Grammar}}: Probabilities can be derived from a synchronous context-free grammar, a typical
-translation model found in MT systems~\cite{Ture:2014aa}. Grammar contains rules that show how source phrases
-are translated into target phrases, with corresponding likelihood values.
-By processing all the rules to accumulate likelihood values, we can construct translation probabilities for each word in the question.\\
+translation model found in MT systems. Grammar contains rules that show how source phrases
+are translated into target phrases, with corresponding likelihood values, which can be used to construct translation 
+probabilities for each word in the question.\\
 \underline{\emph{10-best}}: Statistical MT systems can output a ranked list of translations, instead of the single best, which 
 can be exploited to obtain word translation probabilities from the top 10 translations of a question~\cite{Ture:2014aa}.\\
 %For each question word $w$, we can extract which grammar rules were used to produce the translation -- once we have the
@@ -446,12 +446,11 @@ can be exploited to obtain word translation probabilities from the top 10 transl
 %By doing this for each question translation, we construct a probability distribution that defines the translation space of each
 %question word.\\
 \underline{\emph{Context}}: Neural network-based MT models learn context-dependent word translation probabilities -- 
-the probability of a target word is dependent on the source word it aligns to, as well as a 5-word window of context~\cite{Devlin:2014}.\\
-%We modify the context-dependent lexical translation model from \cite{Devlin:2014} for question 
-%translation.  
-%However questions are sometimes not part of a full, well-formed sentence, so we randomly replace 
-%words in the window with a special filler token. This teaches the model how to accurately translate with full context, partial 
-%context, and no context.\\
+the probability of a target word is dependent on the source word it aligns to, as well as a 5-word window of context.\\
+We modify the context-dependent lexical translation model from \cite{Devlin:2014} for question translation.  
+However questions are sometimes not part of a full, well-formed sentence, so we randomly replace 
+words in the window with a special filler token. This teaches the model how to accurately translate with full context, partial 
+context, and no context.\\
 
 %When comparing these methods, it is important to note that every method has its strengths 
 %and weaknesses.
@@ -500,8 +499,8 @@ is computed between the two vectors $v_{q_{{\tt grammar}}}$ and $v_s$.
 %the three distributions. 
 %:\ 
 %$\sum_{\textrm{word }w} v_{q_{\textrm{grammar}}}(w) v_s(w) / |v_{q_{\textrm{grammar}}}| |v_s|$. 
-This process is repeated for each of the four translation methods, generating four lexical collection-language similarity features 
-called \emph{LexCL}.
+This process is repeated for each translation method, yielding 4 collection-language lexical similarity features 
+(\emph{LexCL}).
 %, are shown in Figure~\ref{fig:features} and described in Table~\ref{tab:features}.
 %\vspace{-0.3cm}
 %\begin{figure}[h!]
@@ -511,11 +510,10 @@ called \emph{LexCL}.
 % \vspace{-0.2cm}
 %\end{figure}
 %\vspace{-0.2cm}
-
 As mentioned before, we also obtain a similarity value by translating the sentence ($s_{\textrm{1best}}$) 
 and computing the cosine similarity with the original question ($q$). Although it is possible to translate the 
 sentence into English using the same four methods, we only used the one-best translation due to the computational 
-cost.\footnote{This decision was primarily due to the time restrictions in our deployed application. Otherwise, it is
+cost.\footnote{This decision was primarily due to our application time restrictions. Otherwise, it is
 quite straightforward to include those features as well.} Hence, we have only one lexical similarity feature in the QL 
 view (called \emph{LexQL}).
 After computation, feature weights are learned via a maximum-entropy model.\footnote{Support vector machines 
@@ -603,11 +601,11 @@ show further improvements.}
 There are at least two reasons why selecting training data based on language might benefit MLQA:\
 %\begin{enumerate}[topsep=0pt,partopsep=1ex]
 (i) If translation has errors, relevant answers might 
-be judged as non-relevant. Training on this data might lead to a tendency to favor 
-English answers higher than Arabic or Chinese, and (ii)
+be judged as non-relevant, leading to a training bias towards favoring 
+English answers over Arabic or Chinese, and (ii)
 %Answers extracted from non-English posts were annotated in one or both of two ways:\ 
 %based on the original text, or based on its English translation (since the task requires returning answers in English). 
-Since some pairs were annotated in both original language and English translation, independently, we can remove 
+Since some pairs were annotated in both original language and translation independently, we can remove 
 inconsistent ones from training.
 %\item \underline{Improve learning:}\ Finally, from a purely ``machine learning'' perspective, it is always plausible that a certain 
 %subset of the training data can produce a better model of relevance.
@@ -663,17 +661,17 @@ and train multiple classifiers, then take a majority vote when predicting.
 %We later bootstrapped more candidate
 %answers after rerunning the pipeline with a trained classifier. ==> no need to give details. In the end, we pretty much annotate all sentences in top 200 docs.
 
-For testing, we froze the set of candidate answers and applied a trained classifier to each question-answer pair, generating
-a ranked list of answers for each question. Evaluation was performed on this ranked list by computing average precision (AP). 
-Due to the size and redundancy of the collections, we sometimes end 
-up with over 1000 known relevant answers for a question. So it is neither reasonable nor meaningful to compute AP until we
+For testing, we froze the set of candidate answers and applied a trained classifier to each question-answer pair, creating
+a ranked list of answers for each question. Evaluation was done by computing average precision (AP). 
+Due to the size and redundancy of the collections, we often end 
+up with over 1000 known relevant answers for a question. It is neither reasonable nor meaningful to compute AP until we
 reach 100\% recall (e.g., 11-point AP) for these cases. Instead, we computed AP-$k$, by accumulating precision values 
-at every relevant answer until we get $k$ relevant answers.\footnote{$k$ was fixed to 20 in our evaluation, although we
+at every relevant answer until we get $k$.\footnote{$k$ was fixed to 20 in our evaluation, although we
 verified that conclusions do not change with $k$ set to 50, 100, or 150.} %(we also tried 50, 100, and 150).
 %\vspace{-0.2cm}
 
-\textbf{Baseline}: As described earlier, the baseline system computes similarity between question text and the one-best 
-translation of the candidate answer by parse-tree-based scoring~[reference removed for anonymization].
+\textbf{Baseline}: As described earlier, the baseline system computes similarity between question text and the 1-best 
+translation of the candidate answer by parse-tree-based scoring~[reference hidden].
 %~\cite{Freedman:2011aa}. 
 This results in three different similarity features:\ matching the tree node similarity, 
 edge similarity, and full tree similarity, weights of which are learned on the same training data. 
@@ -704,6 +702,7 @@ Mixed & 0.665 & \underline{0.675} & eng+ & \uuline{ 0.681 } & all \\ \hline
 \vspace{-0.1cm}
 \label{tab:controlled}
 \end{small}
+\vspace{-0.1cm}
 
 \end{table}
 %any_feat & 0.403 & 0.657 & 0.679 & 0.448\\ \hline
@@ -791,6 +790,7 @@ can be used out of the box for a given MLQA task.
 %Right below MAP, the improvement over the baseline approach is shown for reference, with an asterisk mark if 
 %statistically significant.
 
+\vspace{-0.15cm}
 \section{Conclusions}\label{sec:concl}
 %In this paper, we introduced novel bilingual features for multilingual QA, inspired from recent success in CLIR research.
 %To our knowledge, this is the first use of probabilistic translation methods for this task, and the first attempt
